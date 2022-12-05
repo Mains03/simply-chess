@@ -1,4 +1,5 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <stdio.h>
 
 int main() {
@@ -20,12 +21,21 @@ int main() {
 
   SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 
+  SDL_Surface* image = IMG_Load("assets/chess_piece_2_white_king.png");
+
+  SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, image);
+  SDL_FreeSurface(image);
+
   SDL_RenderClear(renderer);
+
+  SDL_RenderCopy(renderer, texture, NULL, NULL); 
 
   SDL_RenderPresent(renderer);
 
   SDL_Delay(5000);
 
+  SDL_DestroyWindow(window);
+  SDL_DestroyRenderer(renderer);
   SDL_Quit();
 
   return 0;
